@@ -1,0 +1,12 @@
+{
+	"rules": [
+		{
+			"rule": "播放",
+			"func": "playMusic"
+		},
+		{
+			"rule": "刷新",
+			"func": "reload"
+		}
+	]
+}

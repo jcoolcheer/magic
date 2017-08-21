@@ -1,0 +1,103 @@
+
+html{
+	font-size: 10px;
+}
+html, body, .body, .mirror{
+	height: 100%;
+}
+body{
+	background-color: black;
+	color: #fff;
+}
+@mainColor: #1491FF;
+@font-face {
+  font-family: 'iconfont';  /* project id 382716 */
+  src: url('//at.alicdn.com/t/font_382716_7ylnfo95aaxde7b9.eot');
+  src: url('//at.alicdn.com/t/font_382716_7ylnfo95aaxde7b9.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_382716_7ylnfo95aaxde7b9.woff') format('woff'),
+  url('//at.alicdn.com/t/font_382716_7ylnfo95aaxde7b9.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_382716_7ylnfo95aaxde7b9.svg#iconfont') format('svg');
+}
+.iconfont{
+    font-family:"iconfont" !important;
+    font-size:16px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+.iconfont.bigger{
+	font-size: 2.2rem;
+}
+.flex{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+.mirror{
+	padding: 2rem;
+	.flex;
+	justify-content: flex-start;
+	&>section{
+		width: 100%;
+	}
+	&>.show-infos{
+		width: 50%;
+		height: 50%;
+	}
+	&>.assistant-zone{
+		height: 30%;
+	}
+	&>.footer{
+		height: 20%;
+	}
+	hr{
+		border: none;
+		height: 1px;
+		background-color: #4d4d4f;
+		width: 52%;
+		margin: 3rem auto;
+	}
+}
+.is-loading{
+	position: relative;
+	.content{
+		content: '';
+		display: block;
+	}
+	&::before{
+		.content;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		width: 120px;
+		height: 120px;
+		background-color: @mainColor;
+		transform: translate(-50%, -50%);
+		border-radius: 5px;
+		z-index: 99999;
+		box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);      
+	}
+	&::after{
+		.content;
+		position: absolute;
+		width: 50px;
+		height: 50px;
+		z-index: 999999;
+		border-radius: 50%;
+		border: 2px solid #fff;
+		border-top-color: transparent;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%) rotate(0);
+		animation: loading 0.8s infinite ease-in;
+	}
+}
+@keyframes loading{
+ 0%{
+	 transform: translate(-50%, -50%) rotate(0);
+ }
+ 100%{
+	 transform: translate(-50%, -50%) rotate(360deg);
+ }
+}
