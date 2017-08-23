@@ -115,7 +115,7 @@
 				this.clock = setTimeout( () => {
 					speech.stop()
 					this.userSpeaking = false
-					this.speechWords = 'Hello'
+					this.speechWords = '我让停的'
 				}, 5000)
 			},
 			handeInstructions (data) {

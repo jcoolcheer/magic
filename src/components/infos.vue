@@ -303,7 +303,7 @@
 	}
 }
 .function-zone{
-	width: 50%;
+	width: 90%;
 	margin: 0 auto;
 	ul{
 		font-size: 3rem;

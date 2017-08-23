@@ -1,9 +1,5 @@
 <template>
   <section class="player">
-    <section class="playing-music">
-      <canvas id="canvas" width=1440 height=400>
-      </canvas>
-    </section>
     <transition name="slide-fade">
       <section class="player"  >
         <div class="wrapper flex">
@@ -18,6 +14,7 @@
               {{ songInfo.singer }}
             </p>
           </section>
+          <audio :src="songInfo.url" autoplay></audio>
         </div>
       </section>
     </transition>
@@ -25,12 +22,6 @@
 </template>
 <script>
   export default {
-    created () {
-      console.log(this.url)
-    },
-    mounted () {
-      this.init(this.url)
-    },
     beforeDestroy () {
       this.act.close()
     },
@@ -100,25 +91,7 @@
           var dataArray = new Uint8Array(bufferLength)
           var framesToSkip = 2,
               counter = 0
-          function draw () {
-            if (counter < framesToSkip) {
-                counter++;
-                requestAnimationFrame(draw);
-                return;
-            }
-            canvasCtx.clearRect(0, 0, 1440, 400);
-            analyser.getByteTimeDomainData(dataArray)
-            canvasCtx.fillStyle = '#1491FF';							
-            var w = 1440 / 32
-            var min = Math.min.apply(null, dataArray)
-            for (let i = 0; i < 32; i++) {
-              var h = dataArray[i]
-              canvasCtx.fillRect(w * i, 400-(h-min)*2, w*0.6,(h-min)*2)
-            }
-            counter = 0;
-            requestAnimationFrame(draw);
-          }
-          draw.call(this)
+  
           bufferSource[bufferSource.start ? "start" : "noteOn"](0)
           bufferSource.onended = res => {
             window.cancelAnimationFrame(drawVisual)
@@ -145,21 +118,20 @@
   }
   	.player{
 		.wrapper{
-			// border: 1px solid #fff;
-			width: 60rem;
+			width: 50rem;
 			margin: 0 auto;
 			border-radius: 10px;
 			overflow: hidden;
 			box-shadow: 0 0 5px #1491FF;
 			.cover{
-				width: 18rem;
-				height: 18rem;
+				width: 15rem;
+				height: 15rem;
 				background-size: cover;
 				background-position: center;
 				background-image: url(http://p1.music.126.net/87xBoilZP9PUfi5nmSHbzw==/7722969673635338.jpg);
 			}
 			.about{
-				width: calc(~'100% - '18rem);
+				width: calc(~'100% - '15rem);
 				padding: 0 2rem;
 				.song-name{
 					font-size: 3rem;
