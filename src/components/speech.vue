@@ -55,6 +55,7 @@
 				this.audio = audio
 				this.audioAddEvent(audio)
 				socket.on('start',  data => {
+					console.log('111111')
 					this.songInfo = null
 					this.FUNC = false
 					this.speechWords = data
@@ -126,6 +127,7 @@
 						promise.then(
 							data => {
 								speech.stop()
+								this.speechAnswer = null
 								this.speechWords = 'Hello'
 								this.songInfo = data
 								this.FUNC = true

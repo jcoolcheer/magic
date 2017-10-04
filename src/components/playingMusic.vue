@@ -14,7 +14,7 @@
               {{ songInfo.singer }}
             </p>
           </section>
-          <audio :src="songInfo.url" autoplay></audio>
+          <!-- <audio :src="songInfo.url" autoplay></audio> -->
         </div>
       </section>
     </transition>
@@ -22,6 +22,9 @@
 </template>
 <script>
   export default {
+    created () {
+      this.songInfo.url && this.init(this.songInfo.url)
+    },
     beforeDestroy () {
       this.act.close()
     },
@@ -43,8 +46,6 @@
     },
     methods: {
       init(src) {
-        var canvas = document.querySelector("#canvas")
-        this.canvasCtx = canvas.getContext('2d')
         this.xhr = new XMLHttpRequest
         this.act = new window.AudioContext
         this.isLoading = true 
@@ -74,27 +75,12 @@
       },
       afterLoadMusic (response) {
         var act = this.act
-        var canvasCtx = this.canvasCtx
-        var line = canvasCtx.createLinearGradient(0, 0, 0, 400)
-        line.addColorStop(0, '#fff')
-        line.addColorStop(1, '#1491FF')
-        canvasCtx.fillStyle = line
         act.decodeAudioData(response, (buffer) => {
           var bufferSource = act.createBufferSource()
-          var analyser = act.createAnalyser()
-          var drawVisual
           bufferSource.buffer = buffer
           bufferSource.connect(act.destination)
-          bufferSource.connect(analyser)
-          analyser.fftSize = 64;
-          var bufferLength = analyser.fftSize
-          var dataArray = new Uint8Array(bufferLength)
-          var framesToSkip = 2,
-              counter = 0
-  
           bufferSource[bufferSource.start ? "start" : "noteOn"](0)
           bufferSource.onended = res => {
-            window.cancelAnimationFrame(drawVisual)
             this.$emit('update:FUNC', false)
             this.$emit('update:songInfo', null)
           }
